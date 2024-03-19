@@ -12,6 +12,7 @@
     * A `Machine_Learning_Curated.py` script
     * .jpg screenshots of the customer_landing, accelerometer_landing, and customer_trusted tables in Athena
 
+
 ## Problem Statement
 The STEDI Team has been hard at work developing a hardware STEDI Step Trainer that:
 - trains the user to do a STEDI balance exercise
@@ -63,6 +64,7 @@ There are sensors on the device that collect data to train a machine learning al
         - y
         - z
 
+
 ## Usage
 ### Prerequisites
 - An S3 bucket to store data categorized into either the landing, trusted, or curated zone
@@ -108,8 +110,8 @@ My data lakehouse solution is comprised of five Python scripts which are run in 
 #### To create Machine Learning Curated Zone
 6. Run `Machine_Learning_Curated.py` script in Glue to create `machine_learning_curated` table
 
-## Solution
 
+## Solution
 ### Technical Discussion
 In a data lake architecture, the use of landing, trusted, and curated zones serves specific purposes that can significantly enhance the quality, reliability, and usability.
 
@@ -133,3 +135,8 @@ The structured data is then ready for downstream use by our data scientists for 
 Moreover, my solution provides a single source of truth for our data, improving data quality and consistency. This is particularly beneficial when dealing with complex datasets as it simplifies the process of data management and increases efficiency.
 
 Overall, my data lakehouse solution gives us the power to make data-driven decisions, enhancing STEDI's competitive advantage in the market, improving our products, and delivering a superior customer experience.
+
+### Improvements 
+When creating the Glue Job to join data from the accelerometer readings and the customer table, filter out any readings that were prior to the research consent date. This will ensure consent was in place at the time that data was gathered. This helps in the case that in the future the customer revokes consent. We can be sure that the data we used for research was used when consent was in place for that particular data.
+
+Anonymize the final curated table so that it is not subject to GDPR or other privacy regulations, in case a customer requests deletion of PII, we will not be in violation by retaining PII data --remove email, and any other personally identifying information up front.
